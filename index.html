@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instructional Design & AI Joke Cube</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CHRISTMAS COLOR PALETTE: 
+           --dark-green: #057A55; 
+           --dark-red: #B91C1C; 
+           --gold-accent: #FDE68A; 
+           --text-green: #15803D; 
+        */
+        body {
+            font-family: 'Inter', sans-serif;
+            perspective: 1000px; /* For 3D effect */
+            background-color: #F9FAFB; /* Very Light Grey/White Background */
+            color: #15803D; /* Dark Green Text */
+        }
+
+        .cube-container {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            margin: 40px auto 70px auto; 
+            transform-style: preserve-3d;
+            animation: rotateCube 15s infinite linear; /* Gentle continuous rotation */
+        }
+
+        /* PAUSE ROTATION ON HOVER/TOUCH */
+        .cube-container:hover {
+            animation-play-state: paused;
+        }
+
+        .cube-face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid #FDE68A; /* Gold Accent Border */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem; /* Slightly smaller for jokes */
+            font-weight: bold;
+            background-color: rgba(5, 122, 85, 0.7); /* Primary Green with transparency */
+            border-radius: 8px; 
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            backface-visibility: hidden; 
+            padding: 10px; 
+            line-height: 1.4; 
+            cursor: pointer; 
+            transition: transform 0.2s, background 0.2s;
+        }
+
+        .cube-face:hover {
+            transform: scale(1.05); /* Visual feedback */
+            background-color: #057A55; /* Solid Green on hover */
+        }
+
+        /* Cube Face Color Assignment (Alternating Red and Green for Festive Look) */
+        .cube-face.front, .cube-face.top, .cube-face.left  { 
+            transform: rotateY(0deg) translateZ(100px); 
+            background: linear-gradient(135deg, #057A55, #15803D); /* Green Gradient */
+        } 
+        
+        .cube-face.back, .cube-face.bottom, .cube-face.right { 
+            transform: rotateY(180deg) translateZ(100px); 
+            background: linear-gradient(135deg, #B91C1C, #991B1B); /* Red Gradient */
+        } 
+
+        .cube-face.right { transform: rotateY(90deg) translateZ(100px); } 
+        .cube-face.left  { 
+            /* FIX: Added rotateZ(180deg) to flip the content right-side up to counteract the cube's tumble */
+            transform: rotateY(-90deg) translateZ(100px) rotateZ(180deg); 
+        } 
+        .cube-face.top   { transform: rotateX(90deg) translateZ(100px); } 
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); } 
+        
+        .cube-face span {
+            color: #FDE68A; /* Gold text */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
+            display: inline-block;
+            text-align: center; 
+        }
+
+        /* Keyframe for continuous rotation - IMPROVED TUMBLE FOR VISIBILITY */
+        @keyframes rotateCube {
+            /* Ensures all sides, including 4 (left), 5 (top), and 6 (bottom), are clearly visible */
+            0%   { transform: rotateX(15deg) rotateY(0deg); } 
+            25%  { transform: rotateX(105deg) rotateY(90deg); } 
+            50%  { transform: rotateX(20deg) rotateY(180deg); } 
+            75%  { transform: rotateX(285deg) rotateY(270deg); } 
+            100% { transform: rotateX(375deg) rotateY(360deg); }
+        }
+
+        /* Pop-out content animation (for the Punchline box) */
+        .content-box {
+            background-color: #B91C1C; /* Dark Red Background */
+            border: 2px solid #FDE68A; /* Gold Border */
+            color: #F9FAFB; /* White/Light Text */
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 20px; 
+            min-height: 120px; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+        
+        /* Ensure text in the punchline box is white/light */
+        #content-text {
+            color: #F9FAFB; 
+        }
+
+        .pop-out {
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+            transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+        }
+
+        .pop-in {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Progress Bar Styling (The "Laugh-O-Meter") */
+        .progress-container {
+            width: 200px;
+            height: 10px;
+            background-color: #057A55; /* Dark Green Base */
+            border-radius: 5px;
+            margin: 0 auto; 
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #B91C1C; /* Dark Red Progress */
+            transition: width 0.4s ease-in-out;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body class="flex flex-col items-center justify-center min-h-screen p-4">
+
+    <h1 class="text-4xl font-extrabold text-center mb-4 fade-in">Instructional Design & AI Joke Box</h1>
+    <p class="text-lg text-center mb-10 max-w-2xl text-[#15803D] fade-in">
+        Select any face of the spinning cube to reveal the punchline! Try to find all six for maximum laughs.
+    </p>
+    
+    <!-- The 3D Cube -->
+    <div class="cube-container" id="interactive-cube">
+        <!-- Jokes (Questions) on the faces - NOW NUMBERED -->
+        <div class="cube-face front" data-joke="Q1"><span>1. Why did the AI write poetry?</span></div>
+        <div class="cube-face back" data-joke="Q2"><span>2. What is an AI's favorite type of instructional theory?</span></div>
+        <div class="cube-face right" data-joke="Q3"><span>3. What do you call a training session designed by a large language model?</span></div>
+        <div class="cube-face left" data-joke="Q4"><span>4. Why don't ID's use 'Spoon-feeding' as an instruction method anymore?</span></div>
+        <div class="cube-face top" data-joke="Q5"><span>5. Why was the AI learning algorithm bad at storytelling?</span></div>
+        <div class="cube-face bottom" data-joke="Q6"><span>6. How does a good lesson plan differ from a bad AI prompt?</span></div>
+    </div>
+
+    <!-- Progress Indicator (Laugh-O-Meter) -->
+    <h2 class="text-xl font-semibold mb-2 text-[#15803D]">Laugh-O-Meter:</h2>
+    <div class="progress-container">
+        <div id="progress-bar" class="progress-bar"></div>
+    </div>
+
+    <!-- Content Display Area -->
+    <div id="content-display" class="w-full max-w-lg content-box">
+        <p id="content-text" class="text-xl font-medium pop-in"></p>
+    </div>
+
+
+    <script>
+        // Joke Questions and Punchlines
+        const JOKE_DETAILS = {
+            "Q1": "To process its artificial feelings.",
+            "Q2": "<strong>A</strong>rtificial <strong>I</strong>ntelligence-led Constructivism.",
+            "Q3": "An LLM-entary course.",
+            "Q4": "Because learners kept getting cognitive indigestion.",
+            "Q5": "It only knew how to generate a <strong>predictive narrative</strong>.",
+            "Q6": "The good one clearly defines the <strong>desired outcome</strong>."
+        };
+
+        const TOTAL_JOKES = Object.keys(JOKE_DETAILS).length;
+        // Use a Set to track unique jokes viewed
+        const viewedJokes = new Set();
+        
+        const contentText = document.getElementById('content-text');
+        const progressBar = document.getElementById('progress-bar');
+        const cubeFaces = document.querySelectorAll('.cube-face');
+
+        /**
+         * Updates the displayed content with a pop-out/pop-in animation.
+         * @param {string} text The HTML content (punchline) to display.
+         */
+        async function updateContent(text) {
+            // Disable selections during transition
+            cubeFaces.forEach(face => face.style.pointerEvents = 'none');
+
+            // 1. Pop out current content
+            contentText.classList.remove('pop-in');
+            contentText.classList.add('pop-out');
+            
+            // Wait for transition to complete
+            await new Promise(resolve => setTimeout(resolve, 350)); 
+
+            // 2. Update content and pop in new content
+            contentText.innerHTML = text;
+            contentText.classList.remove('pop-out');
+            contentText.classList.add('pop-in');
+
+            // Re-enable selections after content has popped in
+            setTimeout(() => {
+                cubeFaces.forEach(face => face.style.pointerEvents = 'auto');
+            }, 400); // Allow time for full animation cycle
+        }
+
+        /**
+         * Updates the progress bar visually based on the number of unique jokes viewed.
+         */
+        function updateProgressBar() {
+            const progress = viewedJokes.size;
+            const percentage = (progress / TOTAL_JOKES) * 100;
+            progressBar.style.width = `${percentage}%`;
+
+            if (progress === TOTAL_JOKES) {
+                // Display a final message when all jokes are viewed
+                setTimeout(() => {
+                    updateContent("<strong>🎉 You unlocked all the knowledge! Merry Christmas and happy authoring! 🎄</strong>");
+                }, 500);
+            }
+        }
+
+
+        /**
+         * Handles the click event on a specific cube face.
+         * @param {Event} event The click event triggered on a .cube-face element.
+         */
+        async function handleFaceClick(event) {
+            const jokeKey = event.currentTarget.dataset.joke;
+            const punchline = JOKE_DETAILS[jokeKey];
+            
+            if (punchline) {
+                // 1. Display the punchline
+                await updateContent(punchline);
+                
+                // 2. Track view and update progress
+                viewedJokes.add(jokeKey);
+                updateProgressBar();
+            }
+        }
+
+        // Initialization function
+        function initializeApp() {
+            // Updated instruction in the initialization message
+            updateContent("Select a face on the spinning cube to reveal the punchline! Good luck, ID elf.");
+            updateProgressBar(); 
+
+            // Add event listeners to all cube faces
+            cubeFaces.forEach(face => {
+                face.addEventListener('click', handleFaceClick);
+                face.style.pointerEvents = 'auto'; 
+            });
+        }
+
+        // Start the application
+        initializeApp();
+
+    </script>
+</body>
+</html>
