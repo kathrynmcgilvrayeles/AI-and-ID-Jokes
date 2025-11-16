@@ -8,17 +8,16 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* CHRISTMAS COLOR PALETTE: 
-           --dark-green: #057A55; 
-           --dark-red: #B91C1C; 
-           --gold-accent: #FDE68A; 
-           --text-green: #15803D; 
+        /* NEW CORPORATE PALETTE based on image: 
+           --primary-dark: #3A5063; (Dark Slate Blue)
+           --secondary-muted: #78A3B8; (Muted Teal/Slate)
+           --light-accent: #FFFFFF;
         */
         body {
             font-family: 'Inter', sans-serif;
             perspective: 1000px; /* For 3D effect */
             background-color: #F9FAFB; /* Very Light Grey/White Background */
-            color: #15803D; /* Dark Green Text */
+            color: #3A5063; /* Dark Slate Blue Text */
         }
 
         .cube-container {
@@ -39,13 +38,13 @@
             position: absolute;
             width: 200px;
             height: 200px;
-            border: 2px solid #FDE68A; /* Gold Accent Border */
+            border: 2px solid #D4DCE3; /* Light Border/Accent */
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1rem; /* Slightly smaller for jokes */
             font-weight: bold;
-            background-color: rgba(5, 122, 85, 0.7); /* Primary Green with transparency */
+            background-color: rgba(58, 80, 99, 0.7); /* Primary Dark with transparency */
             border-radius: 8px; 
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             backface-visibility: hidden; 
@@ -57,18 +56,18 @@
 
         .cube-face:hover {
             transform: scale(1.05); /* Visual feedback */
-            background-color: #057A55; /* Solid Green on hover */
+            background-color: #3A5063; /* Solid Primary Dark on hover */
         }
 
-        /* Cube Face Color Assignment (Alternating Red and Green for Festive Look) */
+        /* Cube Face Color Assignment (Alternating Muted Teal and Dark Slate Blue) */
         .cube-face.front, .cube-face.top, .cube-face.left  { 
             transform: rotateY(0deg) translateZ(100px); 
-            background: linear-gradient(135deg, #057A55, #15803D); /* Green Gradient */
+            background: linear-gradient(135deg, #78A3B8, #5A8C9E); /* Muted Teal Gradient */
         } 
         
         .cube-face.back, .cube-face.bottom, .cube-face.right { 
             transform: rotateY(180deg) translateZ(100px); 
-            background: linear-gradient(135deg, #B91C1C, #991B1B); /* Red Gradient */
+            background: linear-gradient(135deg, #3A5063, #2D4253); /* Dark Slate Blue Gradient */
         } 
 
         .cube-face.right { transform: rotateY(90deg) translateZ(100px); } 
@@ -80,7 +79,7 @@
         .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); } 
         
         .cube-face span {
-            color: #FDE68A; /* Gold text */
+            color: #FFFFFF; /* White text */
             text-shadow: 1px 1px 2px rgba(0,0,0,0.6);
             display: inline-block;
             text-align: center; 
@@ -98,8 +97,8 @@
 
         /* Pop-out content animation (for the Punchline box) */
         .content-box {
-            background-color: #B91C1C; /* Dark Red Background */
-            border: 2px solid #FDE68A; /* Gold Border */
+            background-color: #3A5063; /* Dark Slate Blue Background */
+            border: 2px solid #D4DCE3; /* Light Border/Accent */
             color: #F9FAFB; /* White/Light Text */
             border-radius: 10px;
             padding: 1.5rem;
@@ -141,7 +140,7 @@
         .progress-container {
             width: 200px;
             height: 10px;
-            background-color: #057A55; /* Dark Green Base */
+            background-color: #78A3B8; /* Muted Teal Base */
             border-radius: 5px;
             margin: 0 auto; 
             overflow: hidden;
@@ -151,7 +150,7 @@
         .progress-bar {
             height: 100%;
             width: 0%;
-            background-color: #B91C1C; /* Dark Red Progress */
+            background-color: #3A5063; /* Dark Slate Blue Progress */
             transition: width 0.4s ease-in-out;
             border-radius: 5px;
         }
@@ -160,7 +159,7 @@
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
 
     <h1 class="text-4xl font-extrabold text-center mb-4 fade-in">Instructional Design & AI Joke Box</h1>
-    <p class="text-lg text-center mb-10 max-w-2xl text-[#15803D] fade-in">
+    <p class="text-lg text-center mb-10 max-w-2xl text-[#3A5063] fade-in">
         Select any face of the spinning cube to reveal the punchline! Try to find all six for maximum laughs.
     </p>
     
@@ -176,7 +175,7 @@
     </div>
 
     <!-- Progress Indicator (Laugh-O-Meter) -->
-    <h2 class="text-xl font-semibold mb-2 text-[#15803D]">Laugh-O-Meter:</h2>
+    <h2 class="text-xl font-semibold mb-2 text-[#3A5063]">Laugh-O-Meter:</h2>
     <div class="progress-container">
         <div id="progress-bar" class="progress-bar"></div>
     </div>
@@ -243,7 +242,7 @@
             if (progress === TOTAL_JOKES) {
                 // Display a final message when all jokes are viewed
                 setTimeout(() => {
-                    updateContent("<strong>🎉 You unlocked all the knowledge! Merry Christmas and happy authoring! 🎄</strong>");
+                    updateContent("<strong>🎉 You unlocked all the knowledge! Now go design something great! 🚀</strong>");
                 }, 500);
             }
         }
