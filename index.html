@@ -21,10 +21,10 @@
         }
 
         .cube-container {
-            width: 200px;
-            height: 200px;
+            width: 300px; /* Increased Size */
+            height: 300px; /* Increased Size */
             position: relative;
-            margin: 40px auto 70px auto; 
+            margin: 80px auto 100px auto; /* Adjusted: More top clearance (80px), less bottom clearance (100px) */
             transform-style: preserve-3d;
             animation: rotateCube 15s infinite linear; /* Gentle continuous rotation */
         }
@@ -36,13 +36,13 @@
 
         .cube-face {
             position: absolute;
-            width: 200px;
-            height: 200px;
+            width: 300px; /* Increased Size */
+            height: 300px; /* Increased Size */
             border: 2px solid #D4DCE3; /* Light Border/Accent */
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem; /* Slightly smaller for jokes */
+            font-size: 1.25rem; /* Increased Font Size */
             font-weight: bold;
             background-color: rgba(58, 80, 99, 0.7); /* Primary Dark with transparency */
             border-radius: 8px; 
@@ -61,22 +61,22 @@
 
         /* Cube Face Color Assignment (Alternating Muted Teal and Dark Slate Blue) */
         .cube-face.front, .cube-face.top, .cube-face.left  { 
-            transform: rotateY(0deg) translateZ(100px); 
+            transform: rotateY(0deg) translateZ(150px); /* Updated Depth */
             background: linear-gradient(135deg, #78A3B8, #5A8C9E); /* Muted Teal Gradient */
         } 
         
         .cube-face.back, .cube-face.bottom, .cube-face.right { 
-            transform: rotateY(180deg) translateZ(100px); 
+            transform: rotateY(180deg) translateZ(150px); /* Updated Depth */
             background: linear-gradient(135deg, #3A5063, #2D4253); /* Dark Slate Blue Gradient */
         } 
 
-        .cube-face.right { transform: rotateY(90deg) translateZ(100px); } 
+        .cube-face.right { transform: rotateY(90deg) translateZ(150px); } /* Updated Depth */
         .cube-face.left  { 
             /* FIX: Added rotateZ(180deg) to flip the content right-side up to counteract the cube's tumble */
-            transform: rotateY(-90deg) translateZ(100px) rotateZ(180deg); 
+            transform: rotateY(-90deg) translateZ(150px) rotateZ(180deg); /* Updated Depth */
         } 
-        .cube-face.top   { transform: rotateX(90deg) translateZ(100px); } 
-        .cube-face.bottom { transform: rotateX(-90deg) translateZ(100px); } 
+        .cube-face.top   { transform: rotateX(90deg) translateZ(150px); } /* Updated Depth */
+        .cube-face.bottom { transform: rotateX(-90deg) translateZ(150px); } /* Updated Depth */
         
         .cube-face span {
             color: #FFFFFF; /* White text */
@@ -138,7 +138,7 @@
 
         /* Progress Bar Styling (The "Laugh-O-Meter") */
         .progress-container {
-            width: 200px;
+            width: 300px; /* Increased Size */
             height: 10px;
             background-color: #78A3B8; /* Muted Teal Base */
             border-radius: 5px;
@@ -182,7 +182,7 @@
 
     <!-- Content Display Area -->
     <div id="content-display" class="w-full max-w-lg content-box">
-        <p id="content-text" class="text-xl font-medium pop-in"></p>
+        <p id="content-text" class="text-2xl font-medium pop-in"></p>
     </div>
 
 
